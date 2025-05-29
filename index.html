@@ -133,123 +133,127 @@
   </style>
 </head>
 <body>
-<header>
-  <h1>🐾 Добро пожаловать в Кошачий Отряд 🐾</h1>
-  <p>Путь к званию Кота начинается здесь.</p>
-</header>
+  <header>
+    <h1>🐾 Добро пожаловать в Кошачий Отряд 🐾</h1>
+    <p>Путь к званию Кота начинается здесь.</p>
+  </header>
 
-<button id="editor-toggle">✏️</button>
-<div id="editor-panel">
-  <input type="password" id="editor-password" placeholder="Введите пароль" /><br><br>
-  <button onclick="enableEditor()">Войти</button>
-  <div id="editor-tools" style="display: none;">
-    <button onclick="toggleCanvas()">🖌️ Маркер</button>
-    <textarea id="comment-box" placeholder="Введите комментарий..." style="width: 100%; height: 100px; margin-top: 10px;"></textarea>
-    <button onclick="saveComment()">💾 Сохранить</button>
+  <button id="editor-toggle">✏️</button>
+  <div id="editor-panel">
+    <input type="password" id="editor-password" placeholder="Введите пароль" /><br><br>
+    <button onclick="enableEditor()">Войти</button>
+    <div id="editor-tools" style="display: none;">
+      <button onclick="toggleCanvas()">🖌️ Маркер</button>
+      <textarea id="comment-box" placeholder="Введите комментарий..." style="width: 100%; height: 100px; margin-top: 10px;"></textarea>
+      <button onclick="saveComment()">💾 Сохранить</button>
+    </div>
   </div>
-</div>
-<canvas id="draw-canvas"></canvas>
+  <canvas id="draw-canvas"></canvas>
 
-<div class="section">
-  <h2>Правила Прайда</h2>
-  <button class="accordion">Основные правила</button>
-  <div class="accordion-content">
-    <p><strong>1.</strong> Быть хорошим котиком — веди себя дружелюбно, уважительно и не устраивай срач без причины.</p>
-    <p><strong>2.</strong> Не шипеть и не гудеть друг на друга. Конфликты — только в <code>#разборки</code>.</p>
-    <p><strong>3.</strong> Не мявкать громко при старших. Уважай иерархию прайда.</p>
-    <p><strong>4.</strong> Агитации — мяу! Запрещена пропаганда любых фракций.</p>
-    <p><strong>5.</strong> Не мусори. Аморальный контент — только в <code>#зона-шипения</code>.</p>
-    <p><strong>6.</strong> Не тронь великого предводителя.</p>
-    <p><strong>7.</strong> Музыкальный контроль — не раздражай окружающих.</p>
+  <div class="section">
+    <h2>Правила Прайда</h2>
+    <button class="accordion">Основные правила</button>
+    <div class="accordion-content">
+      <ul>
+        <li><strong>1.</strong> Быть хорошим котиком — веди себя дружелюбно, уважительно и не устраивай срач без причины.</li>
+        <li><strong>2.</strong> Не шипеть и не гудеть друг на друга. Конфликты — только в <code>#разборки</code>.</li>
+        <li><strong>3.</strong> Не мявкать громко при старших. Уважай иерархию прайда.</li>
+        <li><strong>4.</strong> Агитации — мяу! Запрещена пропаганда любых фракций.</li>
+        <li><strong>5.</strong> Не мусори. Аморальный контент — только в <code>#зона-шипения</code>.</li>
+        <li><strong>6.</strong> Не тронь великого предводителя.</li>
+        <li><strong>7.</strong> Музыкальный контроль — не раздражай окружающих.</li>
+      </ul>
+    </div>
+
+    <button class="accordion">Дополнительные правила</button>
+    <div class="accordion-content">
+      <ul>
+        <li><strong>8.</strong> Спам и флуд — только в лоток.</li>
+        <li><strong>9.</strong> Реклама — только с разрешения администрации.</li>
+        <li><strong>10.</strong> Ник и аватар — тоже ты. Не токсичничай.</li>
+        <li><strong>11.</strong> Администрация — не игрушка.</li>
+      </ul>
+    </div>
   </div>
 
-  <button class="accordion">Дополнительные правила</button>
-  <div class="accordion-content">
-    <p><strong>8.</strong> Спам и флуд — только в лоток.</p>
-    <p><strong>9.</strong> Реклама — только с разрешения администрации.</p>
-    <p><strong>10.</strong> Ник и аватар — тоже ты. Не токсичничай.</p>
-    <p><strong>11.</strong> Администрация — не игрушка.</p>
+  <div class="section">
+    <h2>🏆 Диаграмма Победителей</h2>
+    <div class="chart">
+      <div class="bar gold">🥇 1 место — 50%</div>
+      <div class="bar silver">🥈 2 место — 30%</div>
+      <div class="bar bronze">🥉 3 место — 20%</div>
+    </div>
   </div>
-</div>
 
-<div class="section">
-  <h2>🏆 Диаграмма Победителей</h2>
-  <div class="chart">
-    <div class="bar gold">🥇 1 место — 50%</div>
-    <div class="bar silver">🥈 2 место — 30%</div>
-    <div class="bar bronze">🥉 3 место — 20%</div>
+  <div class="form-button">
+    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK_HERE" target="_blank">📋 Подать заявку</a>
   </div>
-</div>
 
-<div class="form-button">
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLScpUkMIKKCAP-RylshvNGefKpZddHS90aYpG5C_bLr1Mgv48A/viewform?usp=header" target="_blank">📋 Подать заявку</a>
-</div>
+  <script>
+    const correctPassword = "meow123";
+    const canvas = document.getElementById("draw-canvas");
+    const ctx = canvas.getContext("2d");
+    let drawing = false;
 
-<script>
-  const correctPassword = "meow123";
-  const canvas = document.getElementById("draw-canvas");
-  const ctx = canvas.getContext("2d");
-  let drawing = false;
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-
-  function toggleCanvas() {
-    canvas.style.display = canvas.style.display === "none" ? "block" : "none";
-  }
-
-  function enableEditor() {
-    const input = document.getElementById("editor-password").value;
-    if (input === correctPassword) {
-      document.getElementById("editor-tools").style.display = "block";
-      alert("Доступ открыт! Вы можете рисовать и оставлять комментарии.");
-    } else {
-      alert("Неверный пароль!");
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
-  }
 
-  function saveComment() {
-    const comment = document.getElementById("comment-box").value;
-    if (comment.trim()) {
-      const p = document.createElement("p");
-      p.textContent = "💬 Комментарий: " + comment;
-      document.body.appendChild(p);
-      document.getElementById("comment-box").value = "";
+    function toggleCanvas() {
+      canvas.style.display = canvas.style.display === "none" ? "block" : "none";
     }
-  }
 
-  canvas.addEventListener("mousedown", () => { drawing = true });
-  canvas.addEventListener("mouseup", () => { drawing = false; ctx.beginPath(); });
-  canvas.addEventListener("mousemove", draw);
+    function enableEditor() {
+      const input = document.getElementById("editor-password").value;
+      if (input === correctPassword) {
+        document.getElementById("editor-tools").style.display = "block";
+        alert("Доступ открыт! Вы можете рисовать и оставлять комментарии.");
+      } else {
+        alert("Неверный пароль!");
+      }
+    }
 
-  function draw(e) {
-    if (!drawing) return;
-    ctx.lineWidth = 3;
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "#000";
-    ctx.lineTo(e.clientX, e.clientY);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(e.clientX, e.clientY);
-  }
+    function saveComment() {
+      const comment = document.getElementById("comment-box").value;
+      if (comment.trim()) {
+        const p = document.createElement("p");
+        p.textContent = "💬 Комментарий: " + comment;
+        document.body.appendChild(p);
+        document.getElementById("comment-box").value = "";
+      }
+    }
 
-  window.addEventListener("resize", resizeCanvas);
-  resizeCanvas();
+    canvas.addEventListener("mousedown", () => { drawing = true });
+    canvas.addEventListener("mouseup", () => { drawing = false; ctx.beginPath(); });
+    canvas.addEventListener("mousemove", draw);
 
-  document.getElementById("editor-toggle").addEventListener("click", () => {
-    const panel = document.getElementById("editor-panel");
-    panel.style.display = panel.style.display === "none" ? "block" : "none";
-  });
+    function draw(e) {
+      if (!drawing) return;
+      ctx.lineWidth = 3;
+      ctx.lineCap = "round";
+      ctx.strokeStyle = "#000";
+      ctx.lineTo(e.clientX, e.clientY);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(e.clientX, e.clientY);
+    }
 
-  // Accordion logic
-  document.querySelectorAll(".accordion").forEach(button => {
-    button.addEventListener("click", () => {
-      const content = button.nextElementSibling;
-      content.style.display = content.style.display === "block" ? "none" : "block";
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    document.getElementById("editor-toggle").addEventListener("click", () => {
+      const panel = document.getElementById("editor-panel");
+      panel.style.display = panel.style.display === "none" ? "block" : "none";
     });
-  });
-</script>
+
+    // Accordion logic
+    document.querySelectorAll(".accordion").forEach(button => {
+      button.addEventListener("click", () => {
+        const content = button.nextElementSibling;
+        content.style.display = content.style.display === "block" ? "none" : "block";
+      });
+    });
+  </script>
 </body>
 </html>

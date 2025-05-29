@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -45,12 +44,25 @@
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
-    .section h2 {
-      color: #d17c4a;
+    .accordion {
+      cursor: pointer;
+      padding: 1rem;
+      border: none;
+      outline: none;
+      background-color: #ffe8cc;
+      width: 100%;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
+      border-radius: 8px;
     }
-    ul {
-      line-height: 1.6;
-      padding-left: 1.2rem;
+    .accordion-content {
+      display: none;
+      padding: 1rem;
+      background-color: #fff4e6;
+      border-left: 4px solid #ffa94d;
+      border-radius: 0 0 8px 8px;
     }
     .highlight {
       background: #fff4e6;
@@ -59,62 +71,185 @@
       margin: 1rem 0;
       border-radius: 8px;
     }
+    .chart {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .bar {
+      flex: 1;
+      text-align: center;
+      border-radius: 6px;
+      padding: 1rem;
+      color: white;
+    }
+    .gold { background: gold; }
+    .silver { background: silver; color: black; }
+    .bronze { background: peru; }
+    .form-button {
+      margin-top: 2rem;
+      display: block;
+      text-align: center;
+    }
+    .form-button a {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background-color: #ffa94d;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+    }
+    #editor-toggle {
+      cursor: pointer;
+      font-size: 1.5rem;
+      padding: 0.5rem;
+      background: none;
+      border: none;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+    }
+    #editor-panel {
+      display: none;
+      position: fixed;
+      top: 3.5rem;
+      right: 1rem;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 8px;
+      width: 300px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    #draw-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🐾 Добро пожаловать в Кошачий Отряд 🐾</h1>
-    <p>Путь к званию Кота начинается здесь.</p>
-  </header>
+<header>
+  <h1>🐾 Добро пожаловать в Кошачий Отряд 🐾</h1>
+  <p>Путь к званию Кота начинается здесь.</p>
+</header>
 
-  <nav>
-    <a href="#rules">Правила</a>
-    <a href="#ranks">Иерархия</a>
-    <a href="#economy">Экономика</a>
-    <a href="#behavior">Поведение</a>
-  </nav>
+<button id="editor-toggle">✏️</button>
+<div id="editor-panel">
+  <input type="password" id="editor-password" placeholder="Введите пароль" /><br><br>
+  <button onclick="enableEditor()">Войти</button>
+  <div id="editor-tools" style="display: none;">
+    <button onclick="toggleCanvas()">🖌️ Маркер</button>
+    <textarea id="comment-box" placeholder="Введите комментарий..." style="width: 100%; height: 100px; margin-top: 10px;"></textarea>
+    <button onclick="saveComment()">💾 Сохранить</button>
+  </div>
+</div>
+<canvas id="draw-canvas"></canvas>
 
-  <section class="section" id="rules">
-    <h2>📜 Общие Правила</h2>
-    <ul>
-      <li>Все участники обязаны ежедневно чистить минимум 1 блок.</li>
-      <li>Работать можно по любому из трёх направлений: Ремонтик, Ликвидатор, Уборщик.</li>
-      <li>Соблюдение дисциплины и уважение — основа работы отряда.</li>
-      <li>Нарушения фиксируются и могут привести к исключению.</li>
-    </ul>
-  </section>
+<div class="section">
+  <h2>Правила Прайда</h2>
+  <button class="accordion">Основные правила</button>
+  <div class="accordion-content">
+    <p><strong>1.</strong> Быть хорошим котиком — веди себя дружелюбно, уважительно и не устраивай срач без причины.</p>
+    <p><strong>2.</strong> Не шипеть и не гудеть друг на друга. Конфликты — только в <code>#разборки</code>.</p>
+    <p><strong>3.</strong> Не мявкать громко при старших. Уважай иерархию прайда.</p>
+    <p><strong>4.</strong> Агитации — мяу! Запрещена пропаганда любых фракций.</p>
+    <p><strong>5.</strong> Не мусори. Аморальный контент — только в <code>#зона-шипения</code>.</p>
+    <p><strong>6.</strong> Не тронь великого предводителя.</p>
+    <p><strong>7.</strong> Музыкальный контроль — не раздражай окружающих.</p>
+  </div>
 
-  <section class="section" id="ranks">
-    <h2>🔰 Ранги и Продвижение</h2>
-    <div class="highlight">
-      <strong>Котёнок:</strong> стартовый уровень. Испытание длится 35 дней. Работать нужно по всем 3 профессиям.
-    </div>
-    <div class="highlight">
-      <strong>Кот:</strong> выбираются 12 лучших + 3 активных идеолога. Работают также 47 дней.
-    </div>
-    <div class="highlight">
-      <strong>Кот Питан:</strong> руководитель отряда. Из них формируются отряды.
-    </div>
-  </section>
+  <button class="accordion">Дополнительные правила</button>
+  <div class="accordion-content">
+    <p><strong>8.</strong> Спам и флуд — только в лоток.</p>
+    <p><strong>9.</strong> Реклама — только с разрешения администрации.</p>
+    <p><strong>10.</strong> Ник и аватар — тоже ты. Не токсичничай.</p>
+    <p><strong>11.</strong> Администрация — не игрушка.</p>
+  </div>
+</div>
 
-  <section class="section" id="economy">
-    <h2>💰 Награды и Экономика</h2>
-    <ul>
-      <li>За партийный блок — 20 талонов. За непартийный — 5 талонов на отряд.</li>
-      <li>Месячный конкурс отрядов: 1 место — 100%, 2 — 75%, 3 — 50% от награды.</li>
-      <li>Капитан распределяет награды: 40% себе, 20% каждому из 3 участников.</li>
-      <li>На капитана можно подать жалобу при несправедливом распределении.</li>
-    </ul>
-  </section>
+<div class="section">
+  <h2>🏆 Диаграмма Победителей</h2>
+  <div class="chart">
+    <div class="bar gold">🥇 1 место — 50%</div>
+    <div class="bar silver">🥈 2 место — 30%</div>
+    <div class="bar bronze">🥉 3 место — 20%</div>
+  </div>
+</div>
 
-  <section class="section" id="behavior">
-    <h2>📣 Поведение и Жалобы</h2>
-    <ul>
-      <li>Запрещена токсичность, фаворитизм, давление на капитана.</li>
-      <li>Жалобы подаются Котам-Идеологам и Коту Первому.</li>
-      <li>Каждый имеет право вносить предложения и участвовать в улучшении системы.</li>
-    </ul>
-  </section>
+<div class="form-button">
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLScpUkMIKKCAP-RylshvNGefKpZddHS90aYpG5C_bLr1Mgv48A/viewform?usp=header" target="_blank">📋 Подать заявку</a>
+</div>
 
+<script>
+  const correctPassword = "meow123";
+  const canvas = document.getElementById("draw-canvas");
+  const ctx = canvas.getContext("2d");
+  let drawing = false;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function toggleCanvas() {
+    canvas.style.display = canvas.style.display === "none" ? "block" : "none";
+  }
+
+  function enableEditor() {
+    const input = document.getElementById("editor-password").value;
+    if (input === correctPassword) {
+      document.getElementById("editor-tools").style.display = "block";
+      alert("Доступ открыт! Вы можете рисовать и оставлять комментарии.");
+    } else {
+      alert("Неверный пароль!");
+    }
+  }
+
+  function saveComment() {
+    const comment = document.getElementById("comment-box").value;
+    if (comment.trim()) {
+      const p = document.createElement("p");
+      p.textContent = "💬 Комментарий: " + comment;
+      document.body.appendChild(p);
+      document.getElementById("comment-box").value = "";
+    }
+  }
+
+  canvas.addEventListener("mousedown", () => { drawing = true });
+  canvas.addEventListener("mouseup", () => { drawing = false; ctx.beginPath(); });
+  canvas.addEventListener("mousemove", draw);
+
+  function draw(e) {
+    if (!drawing) return;
+    ctx.lineWidth = 3;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "#000";
+    ctx.lineTo(e.clientX, e.clientY);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(e.clientX, e.clientY);
+  }
+
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+
+  document.getElementById("editor-toggle").addEventListener("click", () => {
+    const panel = document.getElementById("editor-panel");
+    panel.style.display = panel.style.display === "none" ? "block" : "none";
+  });
+
+  // Accordion logic
+  document.querySelectorAll(".accordion").forEach(button => {
+    button.addEventListener("click", () => {
+      const content = button.nextElementSibling;
+      content.style.display = content.style.display === "block" ? "none" : "block";
+    });
+  });
+</script>
 </body>
 </html>
